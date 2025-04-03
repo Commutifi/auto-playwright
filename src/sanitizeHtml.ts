@@ -1,4 +1,4 @@
-import sanitize from "sanitize-html";
+import * as sanitizeModule from 'sanitize-html';
 
 /**
  * The reason for sanitization is because OpenAI does not need all of the HTML tags
@@ -11,20 +11,20 @@ import sanitize from "sanitize-html";
  * For instructions that rely on visual cues (e.g. "click red button") we intend to
  * combine HTML with screenshots in the future versions of this library.
  */
-export const sanitizeHtml = (subject: string) => {
-  return sanitize(subject, {
+export const sanitizeHtml = (subject: string): string => {
+  return sanitizeModule(subject, {
     // The default allowedTags list already includes _a lot_ of commonly used tags.
     // https://www.npmjs.com/package/sanitize-html#default-options
     //
     // I don't see a need for this to be configurable at the moment,
     // as it already covers all the layout tags, but we can revisit this if necessary.
-    allowedTags: sanitize.defaults.allowedTags.concat([
-      "button",
-      "form",
-      "img",
-      "input",
-      "select",
-      "textarea",
+    allowedTags: sanitizeModule.defaults.allowedTags.concat([
+      'button',
+      'form',
+      'img',
+      'input',
+      'select',
+      'textarea',
     ]),
     // Setting allowedAttributes to false will allow all attributes.
     allowedAttributes: false,
